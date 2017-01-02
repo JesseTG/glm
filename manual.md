@@ -387,26 +387,25 @@ Compile-time messaging can be enabled by `#define`ing `GLM_MESSAGES` before any 
 
 ### <a name="section3_3"></a> 3.3. C++ language detection
 
-GLM will automatically take advantage of compilers’ language extensions when enabled. To increase cross platform compatibility and to avoid compiler extensions, a programmer can define GLM\_FORCE\_CXX98 before
-any inclusion of &lt;glm/glm.hpp&gt; to restrict the language feature set C++98:
+GLM may implement certain features that require compiler support for a particular C++ standard. We can mandate compatibility with particular revisions of C++ by defining `GLM_FORCE_CXX**` before including any GLM headers (where `**` is one of `98`, `03`, `11`, and `14`).
+
+
 
 ```cpp
-#define GLM_FORCE_CXX98
+#define GLM_FORCE_CXX98 
 #include <glm/glm.hpp>
+// Nothing that was introduced after 1998 will be used in GLM.
 ```
-
-For C++11 and C++14, equivalent defines are available:
-GLM\_FORCE\_CXX11, GLM\_FORCE\_CXX14.
 
 ```cpp
-#define GLM_FORCE_CXX11
+#define GLM_FORCE_CXX14 
 #include <glm/glm.hpp>
-
-// If the compiler doesn’t support C++11, compiler errors will happen.
+// Live life on the bleeding edge; go big or go home!
 ```
 
-GLM\_FORCE\_CXX14 overrides GLM\_FORCE\_CXX11 and GLM\_FORCE\_CXX11
-overrides GLM\_FORCE\_CXX98 defines.
+Later standards will override earlier ones, like so:
+
+`GLM_FORCE_CXX14` > `GLM_FORCE_CXX11` > `GLM_FORCE_CXX03` > `GLM_FORCE_CXX98`
 
 ### <a name="section3_4"></a> 3.4. SIMD support
 
