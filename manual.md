@@ -409,30 +409,27 @@ Later standards will override earlier ones, like so:
 
 ### <a name="section3_4"></a> 3.4. SIMD support
 
-GLM provides some SIMD optimizations based on [compiler intrinsics](https://msdn.microsoft.com/en-us/library/26td21ds.aspx).
-These optimizations will be automatically thanks to compiler arguments.
-For example, if a program is compiled with Visual Studio using /arch:AVX, GLM will detect this argument and generate code using AVX instructions automatically when available.
+GLM provides some SIMD (Single instruction, multiple data) optimizations based on compiler intrinsics, which will be automatically utilized based on the compiler's build options. For example, if a program is compiled in Visual C++ with `/arch:AVX` set, certain GLM functionality will use AVX instructions.
 
-It’s possible to avoid the instruction set detection by forcing the use of a specific instruction set with one of the fallowing define:
-GLM\_FORCE\_SSE2, GLM\_FORCE\_SSE3, GLM\_FORCE\_SSSE3, GLM\_FORCE\_SSE41, GLM\_FORCE\_SSE42, GLM\_FORCE\_AVX, GLM\_FORCE\_AVX2 or GLM\_FORCE\_AVX512.
+GLM can be forced to use a particular set of intrinsics with the following defines: `GLM_FORCE_SSE2`, `GLM_FORCE_SSE3`, `GLM_FORCE_SSE4`, `GLM_FORCE_AVX`, and `GLM_FORCE_AVX2`.
 
-The use of intrinsic functions by GLM implementation can be avoided using the define GLM\_FORCE\_PURE before any inclusion of GLM headers.
+Intrinsics can also be disabled entirely by defining `GLM_FORCE_PURE` before including any GLM header.
 
 ```cpp
 #define GLM_FORCE_PURE
 #include <glm/glm.hpp>
 
-// GLM code will be compiled using pure C++ code without any intrinsics
+// GLM code without any form of intrinsics.
 ```
 
 ```cpp
 #define GLM_FORCE_AVX2
 #include <glm/glm.hpp>
 
-// If the compiler doesn’t support AVX2 instrinsics, compiler errors will happen.
+// Will only compile if AVX2 intrinsics are supported.
 ```
 
-Additionally, GLM provides a low level SIMD API in glm/simd directory for users who are really interested in writing fast algorithms.
+The author recommends using compiler flags instead of these `#define`s wherever possible.
 
 ### <a name="section3_5"></a> 3.5. Force inline
 
