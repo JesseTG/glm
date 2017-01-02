@@ -330,7 +330,7 @@ void foo()
 
 C++ does not provide a way to implement GLSL default precision selection (as defined in GLSL 4.10 specification section 4.5.3) with GLSL-like syntax.
 
-```cpp
+```glsl
 precision mediump int;
 precision highp float;
 ```
@@ -529,12 +529,10 @@ conversion for GLM types.
 
 void foo()
 {
-    glm::ivec4 a;
-    ...
+  glm::ivec4 a;
 
-    glm::vec4 b(a); // Explicit conversion, OK
-    glm::vec4 c = a; // Implicit conversion, OK
-    ...
+  glm::vec4 b(a); // Explicit conversion, OK
+  glm::vec4 c = a; // Implicit conversion, OK
 }
 ```
 
@@ -544,13 +542,13 @@ With GLM\_FORCE\_EXPLICIT\_CTOR define, implicit conversions are not allowed:
 #define GLM_FORCE_EXPLICIT_CTOR
 #include <glm/glm.hpp>
 
+// This function is the same as above.
 void foo()
 {
-    glm::ivec4 a;
-    {
-        glm::vec4 b(a); // Explicit conversion, OK
-        glm::vec4 c = a; // Implicit conversion, ERROR
-        ...
+  glm::ivec4 a;
+
+  glm::vec4 b(a); // Explicit conversion, OK
+  glm::vec4 c = a; // Implicit conversion, ERROR
 }
 ```
 
