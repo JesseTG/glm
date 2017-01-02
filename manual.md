@@ -369,21 +369,19 @@ GLM\_PRECISION\_HIGHP\_UINT: High precision (default)
 
 ### <a name="section3_2"></a> 3.2. Compile-time message system
 
-GLM includes a notification system which can display some information at build time:
+GLM can optionally display the following information at compile-time:
 
-* Platform: Windows, Linux, Native Client, QNX, etc.
-* Compiler: Visual C++, Clang, GCC, ICC, etc.
-* Build model: 32bits or 64 bits
-* C++ version : C++98, C++11, MS extensions, etc.
-* Architecture: x86, SSE, AVX, etc.
-* Included extensions
-* etc.
+- **Platform:** Windows, Linux, Native Client, QNX, etc. 
+- **Compiler:** Visual C++, Clang, GCC, ICC, etc.
+- **Build model:** 32-bit or 64-bit
+- **C++ version:** C++98, C++11, MS extensions, etc.
+- **Architecture:** x86, SSE, AVX, etc.
+- Included extensions
 
-This system is disabled by default. To enable this system, define GLM\_FORCE\_MESSAGES before any inclusion of &lt;glm/glm.hpp&gt;. The messages are generated only by compiler supporting \#program message and
-only once per project build.
+Compile-time messaging can be enabled by `#define`ing `GLM_MESSAGES` before any inclusion of a GLM header. The messages are generated once per build, assuming the compiler supports `#pragma message`.
 
 ```cpp
-#define GLM_FORCE_MESSAGES
+#define GLM_MESSAGES  // Or as part of the build
 #include <glm/glm.hpp>
 ```
 
