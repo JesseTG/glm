@@ -335,11 +335,13 @@ precision mediump int;
 precision highp float;
 ```
 
-To use the default precision functionality, GLM provides some defines that need to add before any include of glm.hpp:
+The following `#define`s may be used *before* including GLM headers to set the default precision of a given arithmetic type:
 
 ```cpp
 #define GLM_PRECISION_MEDIUMP_INT
 #define GLM_PRECISION_HIGHP_FLOAT
+// Or, again, as part of the build process
+
 #include <glm/glm.hpp>
 ```
 
@@ -433,10 +435,10 @@ The author recommends using compiler flags instead of these `#define`s wherever 
 
 ### <a name="section3_5"></a> 3.5. Force inline
 
-To push further the software performance, a programmer can define GLM\_FORCE\_INLINE before any inclusion of &lt;glm/glm.hpp&gt; to force the compiler to inline GLM code.
+To gain a bit of performance, we can define `GLM_FORCE_INLINE` before including any GLM header to force the compiler to inline GLM code.
 
 ```cpp
-#define GLM_FORCE_INLINE
+#define GLM_FORCE_INLINE 
 #include <glm/glm.hpp>
 ```
 
@@ -511,12 +513,16 @@ void foo()
 }
 ```
 
-### <a name="section3_8"></a> 3.8. Require explicit conversions
+### <a name="section3_8"></a> 3.8. Requiring explicit conversions
 
-GLSL supports implicit conversions of vector and matrix types. For example, an ivec4 can be implicitly converted into vec4.
+GLSL allows implicit conversions of vector and matrix types (e.g. from `ivec4` to `vec4`).
 
-Often, this behaviour is not desirable but following the spirit of the library, this behavior is supported in GLM. However, GLM 0.9.6 introduced the define GLM\_FORCE\_EXPLICIT\_CTOR to require explicit
-conversion for GLM types.
+```glsl
+ivec4 a;
+vec4 b = a; // Implicit conversion, OK
+```
+
+Such behavior isn't always desirable in C++, but in the spirit of GLM's mission it is fully supported.
 
 ```cpp
 #include <glm/glm.hpp>
@@ -530,7 +536,7 @@ void foo()
 }
 ```
 
-With GLM\_FORCE\_EXPLICIT\_CTOR define, implicit conversions are not allowed:
+To instead require all conversions between GLM types to be explicit (making implicit conversions a compiler error), we can define `GLM_FORCE_EXPLICIT_CTOR`.
 
 ```cpp
 #define GLM_FORCE_EXPLICIT_CTOR
